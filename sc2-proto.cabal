@@ -1,0 +1,57 @@
+cabal-version:      2.4
+name:               sc2-proto
+version:            0.1.0.0
+synopsis:           Bindings for the Blizzard StarCraft II protobuf API.
+license:            MIT
+author:             Ulf Norell, Maximilian Algehed
+maintainer:         ulf.norell@gmail.com
+
+build-type: Simple
+
+flag optimise-hard
+  default: True
+  description:
+    Aggressive (but expensive) optimisations.
+
+library
+  exposed-modules: Game.StarCraft2.Proto.Common,
+                   Game.StarCraft2.Proto.Common_Fields,
+                   Game.StarCraft2.Proto.Data,
+                   Game.StarCraft2.Proto.Data_Fields,
+                   Game.StarCraft2.Proto.Debug,
+                   Game.StarCraft2.Proto.Debug_Fields,
+                   Game.StarCraft2.Proto.Error,
+                   Game.StarCraft2.Proto.Error_Fields,
+                   Game.StarCraft2.Proto.Query,
+                   Game.StarCraft2.Proto.Query_Fields,
+                   Game.StarCraft2.Proto.Raw,
+                   Game.StarCraft2.Proto.Raw_Fields,
+                   Game.StarCraft2.Proto.Sc2api,
+                   Game.StarCraft2.Proto.Sc2api_Fields,
+                   Game.StarCraft2.Proto.Score,
+                   Game.StarCraft2.Proto.Score_Fields,
+                   Game.StarCraft2.Proto.Spatial,
+                   Game.StarCraft2.Proto.Spatial_Fields,
+                   Game.StarCraft2.Proto.Ui,
+                   Game.StarCraft2.Proto.Ui_Fields
+
+  build-depends: proto-lens-runtime >= 0.7
+  hs-source-dirs:   src
+  default-language: GHC2021
+  ghc-options: -O2
+               -Wincomplete-patterns
+               -Wunused-imports
+
+  if flag(optimise-hard)
+    ghc-options: -fexpose-all-unfoldings
+                 -fspecialise-aggressively
+
+  default-extensions:
+    DerivingStrategies
+    GADTs
+    ImportQualifiedPost
+    LambdaCase
+    MultiWayIf
+    OverloadedStrings
+    RecordWildCards
+
